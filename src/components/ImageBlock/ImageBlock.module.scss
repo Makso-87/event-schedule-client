@@ -1,0 +1,12 @@
+.ImageBlock {
+    height: 20vh;
+    margin: 0 0 50px;
+    background: url(../../images/shrila_prabhupada.webp);
+
+    .Image {
+        height: 100%;
+        object-position: center 68.93%;
+        object-fit: cover;
+        width: 100%;
+    }
+}
