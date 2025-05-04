@@ -1,0 +1,10 @@
+$color1: #ffa367;
+$color2: #ffccab;
+$color3: #ffe0ab;
+$color4: #94aed4;
+$color5: #8cd1c4;
+
+@mixin transition() {
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+}

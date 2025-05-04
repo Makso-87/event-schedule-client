@@ -1,0 +1,22 @@
+.Tabs {
+    .TabBar {
+        display: flex;
+        margin: 0 0 20px;
+
+        .TabItem {
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin: 0 10px 0 0;
+            background: #ffccab;
+            border: none;
+            cursor: pointer;
+
+            &.Active {
+                background: #ffa367;
+            }
+        }
+    }
+
+    .Content {
+    }
+}
