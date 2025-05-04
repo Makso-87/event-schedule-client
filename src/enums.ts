@@ -3,8 +3,3 @@ export enum ETabType {
     Calendar = 'calendar',
     Categories = 'categories',
 }
-
-export enum ELimitType {
-    PreviousMonthLimit,
-    CurrentMonthLimit,
-}

@@ -1,5 +1,4 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { ELimitType } from './enums';
 
 export interface ICategory {
     id: string;
@@ -25,6 +24,19 @@ export interface IDayItem {
     inCurrentMonth?: boolean;
     events: IEvent[];
 }
+
+export interface ICalendarRowItem extends IDayItem {
+    isPreviousMonth: boolean;
+    isNextMoth: boolean;
+}
+
+export type TColor = {
+    color: string;
+};
+
+export type TEventCategoryColors = {
+    [key: string]: TColor;
+};
 
 export interface IGetDateData {
     day: number;

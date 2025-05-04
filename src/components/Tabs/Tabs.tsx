@@ -2,10 +2,9 @@ import React, { MouseEvent, useState } from 'react';
 import classes from './Tabs.module.scss';
 import { ETabType } from '../../enums';
 import { EventsList } from '../EventsList/EventsList';
-import { Calendar } from '../Calendar/Calendar';
 import { Categories } from '../Categories/Categories';
 import { events } from '../../mockData';
-import CalendarFromAi from '../CaledarFromAi/CalendarFromAi';
+import { NewCalendar } from '../NewCalendar/NewCalendar';
 
 const tabs = [
     {
@@ -24,7 +23,7 @@ const tabs = [
 
 const tabsContent = {
     [ETabType.Events]: <EventsList events={events} />,
-    [ETabType.Calendar]: <Calendar />,
+    [ETabType.Calendar]: <NewCalendar />,
     [ETabType.Categories]: <Categories />,
 };
 

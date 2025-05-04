@@ -1,0 +1,100 @@
+@use '../../constants';
+
+.CalendarTab {
+    display: flex;
+    align-items: flex-start;
+
+    .NewCalendar {
+        display: flex;
+        padding: 10px;
+        border: 1px solid #bfa06a;
+        border-radius: 5px;
+        background: #fff3df;
+        flex-shrink: 0;
+        flex-direction: column;
+
+        .CalendarGrid {
+            clear: both;
+            width: 100%;
+            border-radius: 3px;
+            border-collapse: collapse;
+            color: #444;
+
+            td {
+                height: 48px;
+                width: 48px;
+                text-align: center;
+                vertical-align: middle;
+                padding: 5px;
+            }
+
+            thead {
+                td {
+                    border: none;
+                    color: #28283b;
+                    text-transform: uppercase;
+                    font-size: 1.5em;
+                }
+            }
+        }
+
+        .CalendarTop {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 0 10px;
+
+            .MonthName {
+                font-size: 26px;
+                text-align: center;
+                align-items: center;
+            }
+
+            .ButtonPrev {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    width: 10px;
+                    height: 17px;
+                    background: url(../../images/icons/chevron_left.svg);
+                    margin: auto;
+                }
+            }
+
+            .ButtonNext {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    width: 10px;
+                    height: 17px;
+                    background: url(../../images/icons/chevron_right.svg);
+                    margin: auto;
+                }
+            }
+
+            .ButtonPrev,
+            .ButtonNext {
+                border: none;
+                outline: none;
+                font-size: 12px;
+                color: #c0c0c0;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-items: center;
+                position: relative;
+                background: none;
+                border-radius: 5px;
+                @include constants.transition();
+
+                &:hover {
+                    background: #ffe0ab;
+                }
+            }
+        }
+    }
+}
