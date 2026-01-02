@@ -1,2 +1,2 @@
-schema: http://localhost:16108/api
+schema: https://calendar-service.afisha-hk.ru:16108/api
 documents: '**/*.graphql'
