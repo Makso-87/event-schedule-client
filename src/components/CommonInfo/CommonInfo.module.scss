@@ -7,3 +7,50 @@
         margin: 0 0 20px;
     }
 }
+
+@media only screen and (max-width: 780px) {
+    .CommonInfo {
+        .Title {
+            font-size: 25px;
+            line-height: 28px;
+            margin: 0 0 20px;
+            text-align: center;
+        }
+
+        .Info {
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .CommonInfo {
+        .Title {
+            font-size: 20px;
+            line-height: 23px;
+            margin: 0 0 10px;
+        }
+
+        .Info {
+            font-size: 12px;
+            line-height: 15px;
+            margin: 0 0 10px;
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .CommonInfo {
+        .Title {
+            font-size: 17px;
+            line-height: 20px;
+        }
+
+        .Info {
+            font-size: 10px;
+            line-height: 13px;
+        }
+    }
+}

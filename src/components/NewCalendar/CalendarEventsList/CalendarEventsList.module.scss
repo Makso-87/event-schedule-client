@@ -29,12 +29,17 @@
             margin: 0 0 10px;
             align-items: center;
 
+            &:first-of-type {
+                align-items: center;
+            }
+
             &:last-child {
                 margin: 0;
             }
 
             .InfoTypeName {
                 margin: 0 10px 0 0;
+                font-weight: 500;
             }
 
             .EventCategory {
@@ -44,8 +49,7 @@
                 font-size: 12px;
                 line-height: 15px;
                 margin: 0 10px 0 0;
-                color: $color-white;
-                @include text-shadow($color-black);
+                color: $color-black;
                 letter-spacing: 1px;
                 border: 1px solid $color-peach;
             }
@@ -79,6 +83,107 @@
             }
 
             .EventLink {
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .CalendarEventsList {
+        margin: 20px 0 0;
+        padding: 0;
+
+        .Title {
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .CalendarEventsList {
+        .Title {
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+        }
+
+        .CalendarEventsListItem {
+            .EventName {
+                font-size: 16px;
+                line-height: 19px;
+            }
+
+            .InfoContainer {
+                font-size: 14px;
+                line-height: 17px;
+                align-items: flex-start;
+
+                .InfoTypeName {
+                    margin: 0 3px 0 0;
+
+                    &.MobileHide {
+                        display: none;
+                    }
+
+                    &.MobileShow {
+                        display: block;
+                    }
+                }
+
+                .EventCategory {
+                    font-size: 10px;
+                    line-height: 13px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .CalendarEventsList {
+        margin: 10px 0 0;
+
+        .Title {
+            font-size: 18px;
+            line-height: 21px;
+            margin: 0 0 10px;
+        }
+
+        .CalendarEventsListItem {
+            .EventName {
+                font-size: 14px;
+                line-height: 17px;
+            }
+
+            .InfoContainer {
+                font-size: 12px;
+                line-height: 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .CalendarEventsList {
+        .Title {
+            font-size: 16px;
+            line-height: 19px;
+        }
+
+        .CalendarEventsListItem {
+            .EventName {
+                font-size: 12px;
+                line-height: 15px;
+            }
+
+            .InfoContainer {
+                font-size: 11px;
+                line-height: 14px;
+
+                .EventCategory {
+                    font-size: 10px;
+                    line-height: 13px;
+                }
             }
         }
     }

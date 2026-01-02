@@ -37,8 +37,7 @@
 
     &.HasEvent {
         border-color: $color-peach;
-        color: $color-white;
-        @include text-shadow($color-black);
+        color: $color-black;
     }
 
     &.Active {

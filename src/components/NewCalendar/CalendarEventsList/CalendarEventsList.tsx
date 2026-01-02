@@ -10,7 +10,7 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
 
     return (
         <div className={classes.CalendarEventsList}>
-            <h1 className={classes.Title}>{title}</h1>
+            <h2 className={classes.Title}>{title}</h2>
 
             <div>
                 {events?.length ? (
@@ -36,7 +36,11 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
                                 </div>
 
                                 <div className={classes.InfoContainer}>
-                                    <div className={classes.InfoTypeName}>Дата проведения:</div>
+                                    <div className={`${classes.InfoTypeName} ${classes.MobileHide}`}>
+                                        Дата проведения:
+                                    </div>
+                                    <div className={`${classes.InfoTypeName} ${classes.MobileShow}`}>Дата:</div>
+
                                     <div className={classes.EventDate}>
                                         <div className={classes.DateItem}>
                                             <div className={classes.Date}>{getFormattedDate(startDate)}</div>
