@@ -29,11 +29,7 @@
             }
 
             thead {
-                td {
-                    border: none;
-                    color: #28283b;
-                    text-transform: uppercase;
-                    font-size: 1.5em;
+                th {
                 }
             }
         }
@@ -93,6 +89,71 @@
 
                 &:hover {
                     background: #ffe0ab;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .CalendarTab {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .CalendarTab {
+        .NewCalendar {
+            .CalendarTop {
+                .MonthName {
+                    font-size: 23px;
+                    line-height: 26px;
+                }
+            }
+
+            .CalendarGrid {
+                thead {
+                    th {
+                        font-size: 14px;
+                        line-height: 17px;
+                    }
+                }
+
+                td {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 14px;
+                    line-height: 17px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .CalendarTab {
+        .NewCalendar {
+            .CalendarTop {
+                .MonthName {
+                    font-size: 20px;
+                    line-height: 23px;
+                }
+            }
+
+            .CalendarGrid {
+                thead {
+                    th {
+                        font-size: 12px;
+                        line-height: 15px;
+                    }
+                }
+
+                td {
+                    width: 35px;
+                    height: 35px;
+                    font-size: 12px;
+                    line-height: 15px;
                 }
             }
         }
