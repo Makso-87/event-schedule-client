@@ -1,12 +1,12 @@
 import { IEvent, TEventCategoryColors } from '../../interfaces';
 
-export const getEventCategoryColors = (events: IEvent[], categoryMap: Record<string, string>): TEventCategoryColors => {
+export const getEventCategoryColors = (events: IEvent[]): TEventCategoryColors => {
     const eventCategoryColors: TEventCategoryColors = {};
 
     events.forEach((eventItem) => {
-        if (!eventCategoryColors[eventItem.categoryId]) {
-            eventCategoryColors[eventItem.categoryId] = {
-                color: categoryMap[eventItem.categoryId],
+        if (!eventCategoryColors[eventItem.category.id]) {
+            eventCategoryColors[eventItem.category.id] = {
+                color: eventItem.category.color,
             };
         }
     });

@@ -7,7 +7,10 @@ export const CommonInfo = () => {
 
             <div className={classes.Info}>
                 Единая афиша мероприятий Московской общины вайшнавов. Здесь вы можете найти информацию о ближайших
-                событиях в формате календаря. Сайт Афиши <a href='http://afisha-hk.ru/'>http://afisha-hk.ru/</a>
+                событиях в формате календаря. Сайт Афиши{' '}
+                <a href='http://afisha-hk.ru/' target='_blank'>
+                    http://afisha-hk.ru/
+                </a>
             </div>
         </div>
     );

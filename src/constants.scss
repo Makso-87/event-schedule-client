@@ -3,8 +3,23 @@ $color2: #ffccab;
 $color3: #ffe0ab;
 $color4: #94aed4;
 $color5: #8cd1c4;
+$color-white: #ffffff;
+$color-black: #000;
+$color-peach: #bfa06a;
 
 @mixin transition() {
     transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
+}
+
+@mixin text-shadow($color) {
+    text-shadow:
+        -1px -1px 0 $color,
+        0px -1px 0 $color,
+        1px -1px 0 $color,
+        1px 0px 0 $color,
+        1px 1px 0 $color,
+        0px 1px 0 $color,
+        -1px 1px 0 $color,
+        -1px 0px 0 $color;
 }

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 
 const appDirectory = fs.realpathSync(process.cwd());
 
@@ -8,7 +9,7 @@ const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development
 
 module.exports = {
     entry: './src/index.tsx',
-    mode: 'development',
+    mode,
     module: {
         rules: [
             {
@@ -57,19 +58,6 @@ module.exports = {
                 ],
                 exclude: /node_modules/,
             },
-            // {
-            //     test: /\.(png|svg|jpg|jpeg|webp)$/,
-            //     use: [
-            //         {
-            //             loader: 'file-loader',
-            //             options: {
-            //                 name: 'static/media/[name].[hash].[ext]',
-            //                 // outputPath: 'images',
-            //                 // publicPath: 'images',
-            //             },
-            //         },
-            //     ],
-            // },
             {
                 test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
                 type: mode === 'production' ? 'asset' : 'asset/resource',
@@ -92,6 +80,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+        }),
+        new DefinePlugin({
+            'process.env.SERVICE_URL': JSON.stringify(process.env.SERVICE_URL || ''),
         }),
     ],
 };

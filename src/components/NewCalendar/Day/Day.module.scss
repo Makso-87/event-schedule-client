@@ -1,4 +1,4 @@
-@use '../../../constants';
+@use '../../../constants.scss' as *;
 
 .Day {
     position: relative;
@@ -13,20 +13,20 @@
     overflow: hidden;
     border: 1px solid transparent;
     text-align: center;
-    @include constants.transition();
+    @include transition();
 
     &:not(.Disabled):hover {
-        border-color: #bfa06a;
+        border-color: $color-peach;
     }
 
     &.Today {
         font-weight: 700;
         color: #28283b;
-        border: 1px solid #bfa06a;
+        border: 1px solid $color-peach;
 
         &:hover {
             color: #ffffff;
-            background: #bfa06a;
+            background: $color-peach;
         }
     }
 
@@ -36,6 +36,12 @@
     }
 
     &.HasEvent {
-        border-color: #bfa06a;
+        border-color: $color-peach;
+        color: $color-white;
+        @include text-shadow($color-black);
+    }
+
+    &.Active {
+        box-shadow: 0 0 0 3px #c57171;
     }
 }
