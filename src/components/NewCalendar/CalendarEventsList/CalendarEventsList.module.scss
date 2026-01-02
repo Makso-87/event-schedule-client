@@ -20,6 +20,10 @@
         border-radius: 5px;
         width: 100%;
 
+        &:last-child {
+            margin: 0;
+        }
+
         .EventName {
             margin: 0 0 10px;
         }
@@ -91,7 +95,7 @@
 @media only screen and (max-width: 980px) {
     .CalendarEventsList {
         margin: 20px 0 0;
-        padding: 0;
+        padding: 0 0 20px;
 
         .Title {
             text-align: center;
