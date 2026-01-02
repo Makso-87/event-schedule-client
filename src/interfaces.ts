@@ -4,6 +4,7 @@ export interface ICategory {
     id: string;
     name: string;
     color: string;
+    description: string;
 }
 
 export interface IEvent {
@@ -15,13 +16,23 @@ export interface IEvent {
     place: string;
     url: string;
     lent: string;
-    categoryId: string;
+    category: ICategory;
 }
 
 export interface IDayItem {
+    date: Date;
     value: number;
     isToday: boolean;
+    isActive?: boolean;
     inCurrentMonth?: boolean;
+    events: IEvent[];
+}
+
+export interface ICategoriesState {
+    categories: ICategory[];
+}
+
+export interface IEventsState {
     events: IEvent[];
 }
 

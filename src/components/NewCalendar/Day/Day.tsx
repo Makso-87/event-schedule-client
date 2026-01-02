@@ -3,8 +3,6 @@ import cn from 'classnames';
 import classes from './Day.module.scss';
 import { ICalendarRowItem, TColor } from '../../../interfaces';
 import { getEventCategoryColors } from '../../../utils/calendar/getEventCategoryColors';
-import { categories } from '../../../mockData';
-import { getEventCategoryColorsMap } from '../../../utils/calendar/getEventCategoryColorsMap';
 import { getEventsCSSGradients } from '../../../utils/calendar/getEventsCSSGradients';
 
 export const Day = ({ data, callback }: { data: ICalendarRowItem; callback: () => void }) => {
@@ -12,10 +10,10 @@ export const Day = ({ data, callback }: { data: ICalendarRowItem; callback: () =
         [classes.Today]: data.isToday && data.inCurrentMonth,
         [classes.Disabled]: !data.inCurrentMonth,
         [classes.HasEvent]: data.events.length && data.inCurrentMonth,
+        [classes.Active]: data.isActive,
     });
 
-    const eventCategoryColorsMap = getEventCategoryColorsMap(categories);
-    const eventCategoryColors = getEventCategoryColors(data.events, eventCategoryColorsMap);
+    const eventCategoryColors = getEventCategoryColors(data.events);
     const colorValues: TColor[] = Object.values(eventCategoryColors);
     const gradients = getEventsCSSGradients(colorValues);
 
@@ -26,7 +24,7 @@ export const Day = ({ data, callback }: { data: ICalendarRowItem; callback: () =
     const args = {
         onClick: callback,
         className: classList,
-        [colorValues.length && data.inCurrentMonth && 'style']: style,
+        ...(colorValues.length && data.inCurrentMonth && { style }),
     };
 
     return <div {...args}>{data.value}</div>;

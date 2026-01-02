@@ -1,4 +1,4 @@
-@use '../../constants';
+@use '../../constants.scss' as *;
 
 .CalendarTab {
     display: flex;
@@ -7,7 +7,7 @@
     .NewCalendar {
         display: flex;
         padding: 10px;
-        border: 1px solid #bfa06a;
+        border: 1px solid $color-peach;
         border-radius: 5px;
         background: #fff3df;
         flex-shrink: 0;
@@ -89,7 +89,7 @@
                 position: relative;
                 background: none;
                 border-radius: 5px;
-                @include constants.transition();
+                @include transition();
 
                 &:hover {
                     background: #ffe0ab;

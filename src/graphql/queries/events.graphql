@@ -1,0 +1,19 @@
+query Events {
+    events {
+        id
+        name
+        startDate
+        endDate
+        startTime
+        endTime
+        place
+        url
+        lent
+        category {
+            id
+            name
+            color
+            description
+        }
+    }
+}

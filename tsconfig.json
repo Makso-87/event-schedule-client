@@ -9,5 +9,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "files": ["src/@types/graphql.d.ts"],
+  "include": ["*.ts", "src/**/*.tsx", "src/**/*.ts", "declaration.d.ts"],
 }

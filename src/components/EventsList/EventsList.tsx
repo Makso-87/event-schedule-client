@@ -1,14 +1,11 @@
 import React from 'react';
 import classes from './EventsList.module.scss';
-import { IEvent } from '../../interfaces';
 import { getEventDates } from '../../utils/getEventDates';
-import { categories } from '../../mockData';
+import { useAppSelector } from '../../hooks/redux-toolkit-hooks';
 
-const categoriesMapping = categories.reduce((acc: Record<string, string>, { name, id }) => {
-    return { ...acc, [id]: name };
-}, {});
+export const EventsList = () => {
+    const events = useAppSelector((state) => state.eventsList.events);
 
-export const EventsList = ({ events }: { events: IEvent[] }) => {
     return (
         <div className={classes.EventsList}>
             <table>
@@ -26,7 +23,7 @@ export const EventsList = ({ events }: { events: IEvent[] }) => {
                             <td>{getEventDates(event)}</td>
                             <td>{event.name}</td>
                             <td>{event.place}</td>
-                            <td>{categoriesMapping[event.categoryId]}</td>
+                            <td>{event.category.name}</td>
                             <td>{event.url}</td>
                         </tr>
                     );

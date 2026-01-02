@@ -1,15 +1,15 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import classes from './NewCalendar.module.scss';
 
-import { ICalendarRowItem, IEvent } from '../../interfaces';
+import { ICalendarRowItem, IDayItem, IEvent } from '../../interfaces';
 import { getWeeksInMonth } from 'date-fns/getWeeksInMonth';
 import { daysOfWeek, FIRST_MONTH_NUMBER, LAST_MONTH_NUMBER, months, SEVEN_DAY_OF_MONTH } from '../../constants';
 import { startOfMonth } from 'date-fns/startOfMonth';
 import { isToday } from 'date-fns/isToday';
 import { getCalendarDayEvents } from '../../utils/calendar/getCalendarDayEvents';
-import { events } from '../../mockData';
 import { Day } from './Day/Day';
 import { CalendarEventsList } from './CalendarEventsList/CalendarEventsList';
+import { useAppSelector } from '../../hooks/redux-toolkit-hooks';
 
 const getDateData = (date: string | number | Date = new Date()) => {
     const dateObject = date instanceof Date ? date : new Date(date);
@@ -27,7 +27,7 @@ const getDateData = (date: string | number | Date = new Date()) => {
     };
 };
 
-const getDaysGrid = (date: Date): ICalendarRowItem[][] => {
+const getDaysGrid = (date: Date, events: IEvent[]): ICalendarRowItem[][] => {
     const weeksInMonth = getWeeksInMonth(date, { weekStartsOn: 1 });
     const monthStart = startOfMonth(date);
     const startDay = monthStart.getDay();
@@ -45,6 +45,7 @@ const getDaysGrid = (date: Date): ICalendarRowItem[][] => {
         const isNextMonth = currentDayDate.getMonth() > date.getMonth();
 
         rows[rowsCount][daysInRowCounter] = {
+            date: currentDayDate,
             value: currentDayDate.getDate(),
             isToday: isToday(currentDayDate),
             isNextMoth: isNextMonth,
@@ -66,9 +67,16 @@ const getDaysGrid = (date: Date): ICalendarRowItem[][] => {
 };
 
 export const NewCalendar = () => {
+    const events = useAppSelector((state) => state.eventsList.events);
+
     const [currentDate, setCurrentDate] = useState(getDateData().date);
-    const [daysGrid, setDaysGrid] = useState(getDaysGrid(currentDate));
+    const [daysGrid, setDaysGrid] = useState<ICalendarRowItem[][]>([]);
     const [selectedEvents, setSelectedEvents] = useState<IEvent[]>(null);
+    const [selectedDay, setSelectedDay] = useState<IDayItem>(null);
+
+    useEffect(() => {
+        setDaysGrid(getDaysGrid(currentDate, events));
+    }, [events]);
 
     const onClickNextMonthButton: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
@@ -83,7 +91,7 @@ export const NewCalendar = () => {
         }
 
         setCurrentDate(newCurrentDate);
-        setDaysGrid(getDaysGrid(newCurrentDate));
+        setDaysGrid(getDaysGrid(newCurrentDate, events));
     };
 
     const onClickPrevMothButton: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -99,11 +107,14 @@ export const NewCalendar = () => {
         }
 
         setCurrentDate(newCurrentDate);
-        setDaysGrid(getDaysGrid(newCurrentDate));
+        setDaysGrid(getDaysGrid(newCurrentDate, events));
     };
 
-    const onClickMonthDay = (events: IEvent[]) => {
-        setSelectedEvents(events);
+    const onClickMonthDay = (day: IDayItem) => {
+        if (day.inCurrentMonth) {
+            setSelectedDay(day);
+            setSelectedEvents(day.events);
+        }
     };
 
     return (
@@ -125,35 +136,48 @@ export const NewCalendar = () => {
                 </div>
 
                 <table className={classes.CalendarGrid}>
-                    <tr>
-                        {daysOfWeek.map((day) => {
-                            return (
-                                <th>
-                                    <div className={classes.WeekDay}>{day}</div>
-                                </th>
-                            );
-                        })}
-                    </tr>
+                    <thead>
+                        <tr>
+                            {daysOfWeek.map((day) => {
+                                return (
+                                    <th key={day}>
+                                        <div className={classes.WeekDay}>{day}</div>
+                                    </th>
+                                );
+                            })}
+                        </tr>
+                    </thead>
 
-                    {daysGrid.length
-                        ? daysGrid.map((dayRow) => {
-                              return (
-                                  <tr>
-                                      {dayRow.map((day) => {
-                                          return (
-                                              <td>
-                                                  <Day data={day} callback={() => onClickMonthDay(day.events)} />
-                                              </td>
-                                          );
-                                      })}
-                                  </tr>
-                              );
-                          })
-                        : null}
+                    <tbody>
+                        {daysGrid.length
+                            ? daysGrid.map((dayRow, index) => {
+                                  return (
+                                      <tr key={index + Math.random()}>
+                                          {dayRow.map((day) => {
+                                              const key = `${day.value}-${day.events.reduce((acc, event) => {
+                                                  return `${acc}-${event.category.id}`;
+                                              }, '')}`;
+
+                                              const data = {
+                                                  ...day,
+                                                  isActive: day.date === selectedDay?.date,
+                                              };
+
+                                              return (
+                                                  <td key={key}>
+                                                      <Day data={data} callback={() => onClickMonthDay(day)} />
+                                                  </td>
+                                              );
+                                          })}
+                                      </tr>
+                                  );
+                              })
+                            : null}
+                    </tbody>
                 </table>
             </div>
 
-            {selectedEvents && <CalendarEventsList events={selectedEvents} />}
+            {selectedEvents && <CalendarEventsList date={selectedDay.date} events={selectedEvents} />}
         </div>
     );
 };
