@@ -44,6 +44,10 @@
             .InfoTypeName {
                 margin: 0 10px 0 0;
                 font-weight: 500;
+
+                &.MobileShow {
+                    display: none;
+                }
             }
 
             .EventCategory {
