@@ -39,6 +39,7 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
                                     <div className={`${classes.InfoTypeName} ${classes.MobileHide}`}>
                                         Дата проведения:
                                     </div>
+
                                     <div className={`${classes.InfoTypeName} ${classes.MobileShow}`}>Дата:</div>
 
                                     <div className={classes.EventDate}>
@@ -48,13 +49,23 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
                                         </div>
 
                                         {endDate || endTime ? (
-                                            <span dangerouslySetInnerHTML={{ __html: LONG_DASH }} />
-                                        ) : null}
+                                            <>
+                                                <span dangerouslySetInnerHTML={{ __html: LONG_DASH }} />
 
-                                        <div className={classes.DateItem}>
-                                            <div className={classes.Date}>{getFormattedDate(endDate)}</div>
-                                            {endTime ? <div className={classes.Time}>, {endTime}</div> : null}
-                                        </div>
+                                                <div className={classes.DateItem}>
+                                                    {endDate ? (
+                                                        <div className={classes.Date}>{getFormattedDate(endDate)}</div>
+                                                    ) : null}
+
+                                                    {endTime ? (
+                                                        <div className={classes.Time}>
+                                                            {endDate ? ', ' : ''}
+                                                            {endTime}
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                            </>
+                                        ) : null}
                                     </div>
                                 </div>
 
