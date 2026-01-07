@@ -50,7 +50,10 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
 
                                         {endDate || endTime ? (
                                             <>
-                                                <span dangerouslySetInnerHTML={{ __html: LONG_DASH }} />
+                                                <span
+                                                    className={classes.LongDash}
+                                                    dangerouslySetInnerHTML={{ __html: LONG_DASH }}
+                                                />
 
                                                 <div className={classes.DateItem}>
                                                     {endDate ? (
