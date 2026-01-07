@@ -76,7 +76,7 @@
                     }
 
                     &:last-child {
-                        margin: 0 0 0 5px;
+                        margin: 0;
                     }
 
                     .Date {
@@ -84,6 +84,10 @@
 
                     .Time {
                     }
+                }
+
+                .LongDash {
+                    margin: 0 5px 0 0;
                 }
             }
 
