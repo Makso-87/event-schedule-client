@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack build --config webpack.config.js",
+    "start": "node src/server.js",
     "graphql-gen": "graphql-codegen"
   },
   "author": "Maksim Popov",
@@ -15,6 +16,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
+    "express": "^5.2.1",
     "graphql": "^16.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
