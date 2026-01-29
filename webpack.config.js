@@ -4,6 +4,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
 const appDirectory = fs.realpathSync(process.cwd());
+const envFile = fs.readFileSync(path.resolve(appDirectory, '.env'), { encoding: 'utf8' });
+
+const getEnvData = (file) => {
+    return file.split('\n').reduce((acc, env) => {
+        const [key, value] = env.split('=');
+
+        return {
+            ...acc,
+            [key]: JSON.stringify(value),
+        };
+    }, {});
+};
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -81,8 +93,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
-        new DefinePlugin({
-            'process.env.SERVICE_URL': JSON.stringify(process.env.SERVICE_URL || ''),
-        }),
+        new DefinePlugin({ 'process.env': getEnvData(envFile) }),
     ],
 };
