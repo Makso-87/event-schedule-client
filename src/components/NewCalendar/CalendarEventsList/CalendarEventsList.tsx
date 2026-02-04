@@ -1,12 +1,11 @@
 import React from 'react';
 import classes from './CalendarEventsList.module.scss';
 import { IEvent } from '../../../interfaces';
-import { getFormattedDate } from '../../../utils/calendar/getFormattedDate';
 import { LONG_DASH, monthsMap } from '../../../constants';
 
 export const CalendarEventsList = ({ date, events }: { date: Date; events: IEvent[] }) => {
-    const [day, month, year] = date.toLocaleDateString().split('.');
-    const title = `${day.replace(/(^0)/, '')} ${monthsMap[month]} ${year} года`;
+    const [day, month] = date.toLocaleDateString().split('.');
+    const title = `${day.replace(/(^0)/, '')} ${monthsMap[month]}`;
 
     return (
         <div className={classes.CalendarEventsList}>
@@ -15,7 +14,7 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
             <div>
                 {events?.length ? (
                     events.map((event) => {
-                        const { name, category, place, lent, url, startDate, endDate, startTime, endTime } = event;
+                        const { name, category, place, lent, url, startTime, endTime } = event;
 
                         const categoryStyle = { background: category.color };
 
@@ -24,53 +23,37 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
                                 <h3 className={classes.EventName}>{name}</h3>
 
                                 <div className={classes.InfoContainer}>
-                                    <div className={classes.InfoTypeName}>Категория:</div>
                                     <div className={classes.EventCategory} style={categoryStyle}>
                                         {category.name}
                                     </div>
                                 </div>
 
                                 <div className={classes.InfoContainer}>
-                                    <div className={classes.InfoTypeName}>Место проведения:</div>
                                     <div className={classes.EventPlace}>{place}</div>
                                 </div>
 
-                                <div className={classes.InfoContainer}>
-                                    <div className={`${classes.InfoTypeName} ${classes.MobileHide}`}>
-                                        Дата проведения:
-                                    </div>
+                                {startTime ? (
+                                    <div className={classes.InfoContainer}>
+                                        <div className={classes.EventDate}>
+                                            <div className={classes.DateItem}>
+                                                <div className={classes.Time}>{startTime}</div>
+                                            </div>
 
-                                    <div className={`${classes.InfoTypeName} ${classes.MobileShow}`}>Дата:</div>
+                                            {endTime ? (
+                                                <>
+                                                    <span
+                                                        className={classes.LongDash}
+                                                        dangerouslySetInnerHTML={{ __html: LONG_DASH }}
+                                                    />
 
-                                    <div className={classes.EventDate}>
-                                        <div className={classes.DateItem}>
-                                            <div className={classes.Date}>{getFormattedDate(startDate)}</div>
-                                            {startTime ? <div className={classes.Time}>, {startTime}</div> : null}
+                                                    <div className={classes.DateItem}>
+                                                        <div className={classes.Time}>{endTime}</div>
+                                                    </div>
+                                                </>
+                                            ) : null}
                                         </div>
-
-                                        {endDate || endTime ? (
-                                            <>
-                                                <span
-                                                    className={classes.LongDash}
-                                                    dangerouslySetInnerHTML={{ __html: LONG_DASH }}
-                                                />
-
-                                                <div className={classes.DateItem}>
-                                                    {endDate ? (
-                                                        <div className={classes.Date}>{getFormattedDate(endDate)}</div>
-                                                    ) : null}
-
-                                                    {endTime ? (
-                                                        <div className={classes.Time}>
-                                                            {endDate ? ', ' : ''}
-                                                            {endTime}
-                                                        </div>
-                                                    ) : null}
-                                                </div>
-                                            </>
-                                        ) : null}
                                     </div>
-                                </div>
+                                ) : null}
 
                                 {lent ? (
                                     <div className={classes.InfoContainer}>
@@ -79,14 +62,16 @@ export const CalendarEventsList = ({ date, events }: { date: Date; events: IEven
                                     </div>
                                 ) : null}
 
-                                <div className={classes.InfoContainer}>
-                                    <div className={classes.InfoTypeName}>Подробнее:</div>
-                                    <div className={classes.EventLink}>
-                                        <a href={url} target='_blank'>
-                                            {url}
-                                        </a>
+                                {url ? (
+                                    <div className={classes.InfoContainer}>
+                                        <div className={classes.InfoTypeName}>Подробнее:</div>
+                                        <div className={classes.EventLink}>
+                                            <a href={url} target='_blank'>
+                                                {url}
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
+                                ) : null}
                             </div>
                         );
                     })
