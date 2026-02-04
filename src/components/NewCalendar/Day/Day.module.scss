@@ -36,11 +36,11 @@
     }
 
     &.HasEvent {
-        border-color: $color-peach;
+        border: none;
         color: $color-black;
     }
 
     &.Active {
-        box-shadow: 0 0 0 3px #c57171;
+        box-shadow: 0 0 0 2px #c57171;
     }
 }
