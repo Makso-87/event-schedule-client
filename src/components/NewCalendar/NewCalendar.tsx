@@ -24,12 +24,15 @@ export const NewCalendar = () => {
 
         if (events.length) {
             const nearestEvents = getNearestEvents(events);
-            setSelectedEvents(nearestEvents);
-            setSelectedDay({
-                date: new Date(nearestEvents[0].startDate),
-            } as IDayItem);
 
-            setShowNearestEvents(true);
+            if (nearestEvents.length) {
+                setSelectedEvents(nearestEvents);
+                setSelectedDay({
+                    date: new Date(nearestEvents[0].startDate),
+                } as IDayItem);
+
+                setShowNearestEvents(true);
+            }
         }
     }, [events]);
 
