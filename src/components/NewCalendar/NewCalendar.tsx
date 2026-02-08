@@ -2,69 +2,13 @@ import React, { MouseEventHandler, useEffect, useState } from 'react';
 import classes from './NewCalendar.module.scss';
 
 import { ICalendarRowItem, IDayItem, IEvent } from '../../interfaces';
-import { getWeeksInMonth } from 'date-fns/getWeeksInMonth';
-import { daysOfWeek, FIRST_MONTH_NUMBER, LAST_MONTH_NUMBER, months, SEVEN_DAY_OF_MONTH } from '../../constants';
-import { startOfMonth } from 'date-fns/startOfMonth';
-import { isToday } from 'date-fns/isToday';
-import { getCalendarDayEvents } from '../../utils/calendar/getCalendarDayEvents';
 import { Day } from './Day/Day';
 import { CalendarEventsList } from './CalendarEventsList/CalendarEventsList';
 import { useAppSelector } from '../../hooks/redux-toolkit-hooks';
-
-const getDateData = (date: string | number | Date = new Date()) => {
-    const dateObject = date instanceof Date ? date : new Date(date);
-    const year = dateObject.getFullYear();
-    const month = dateObject.getMonth();
-    const day = dateObject.getDate();
-    const weekDay = dateObject.getDay();
-
-    return {
-        year,
-        month,
-        day,
-        weekDay,
-        date: dateObject,
-    };
-};
-
-const getDaysGrid = (date: Date, events: IEvent[]): ICalendarRowItem[][] => {
-    const weeksInMonth = getWeeksInMonth(date, { weekStartsOn: 1 });
-    const monthStart = startOfMonth(date);
-    const startDay = monthStart.getDay();
-    const totalDays = weeksInMonth * SEVEN_DAY_OF_MONTH;
-    let daysInRowCounter = 0;
-    const rows: ICalendarRowItem[][] = [[]];
-    let rowsCount = 0;
-
-    for (let i = 1; i <= totalDays; i += 1) {
-        const currentDayDate = new Date(date.getFullYear(), date.getMonth(), i - (startDay || SEVEN_DAY_OF_MONTH) + 1);
-
-        // Проверяем, попадает ли текущий день в месяц
-        const isCurrentMonth = currentDayDate.getMonth() === date.getMonth();
-        const isPrevMonth = currentDayDate.getMonth() < date.getMonth();
-        const isNextMonth = currentDayDate.getMonth() > date.getMonth();
-
-        rows[rowsCount][daysInRowCounter] = {
-            date: currentDayDate,
-            value: currentDayDate.getDate(),
-            isToday: isToday(currentDayDate),
-            isNextMoth: isNextMonth,
-            isPreviousMonth: isPrevMonth,
-            inCurrentMonth: isCurrentMonth,
-            events: getCalendarDayEvents(currentDayDate, events),
-        };
-
-        if (daysInRowCounter < SEVEN_DAY_OF_MONTH - 1) {
-            daysInRowCounter += 1;
-        } else {
-            daysInRowCounter = 0;
-            rowsCount += 1;
-            rows.push([]);
-        }
-    }
-
-    return rows;
-};
+import { getNearestEvents } from '../../utils/calendar/getNearestEvents';
+import { getDaysGrid } from '../../utils/calendar/getDaysGrid';
+import { getDateData } from '../../utils/calendar/getDateData';
+import { daysOfWeek, FIRST_MONTH_NUMBER, LAST_MONTH_NUMBER, months } from '../../constants';
 
 export const NewCalendar = () => {
     const events = useAppSelector((state) => state.eventsList.events);
@@ -73,9 +17,20 @@ export const NewCalendar = () => {
     const [daysGrid, setDaysGrid] = useState<ICalendarRowItem[][]>([]);
     const [selectedEvents, setSelectedEvents] = useState<IEvent[]>(null);
     const [selectedDay, setSelectedDay] = useState<IDayItem>(null);
+    const [showNearestEvents, setShowNearestEvents] = useState<boolean>(false);
 
     useEffect(() => {
         setDaysGrid(getDaysGrid(currentDate, events));
+
+        if (events.length) {
+            const nearestEvents = getNearestEvents(events);
+            setSelectedEvents(nearestEvents);
+            setSelectedDay({
+                date: new Date(nearestEvents[0].startDate),
+            } as IDayItem);
+
+            setShowNearestEvents(true);
+        }
     }, [events]);
 
     const onClickNextMonthButton: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -114,6 +69,7 @@ export const NewCalendar = () => {
         if (day.inCurrentMonth) {
             setSelectedDay(day);
             setSelectedEvents(day.events);
+            setShowNearestEvents(false);
         }
     };
 
@@ -177,7 +133,13 @@ export const NewCalendar = () => {
                 </table>
             </div>
 
-            {selectedEvents && <CalendarEventsList date={selectedDay.date} events={selectedEvents} />}
+            {selectedEvents && (
+                <CalendarEventsList
+                    showNearestEvents={showNearestEvents}
+                    date={selectedDay.date}
+                    events={selectedEvents}
+                />
+            )}
         </div>
     );
 };

@@ -2,14 +2,31 @@ import React from 'react';
 import classes from './CalendarEventsList.module.scss';
 import { IEvent } from '../../../interfaces';
 import { LONG_DASH, monthsMap } from '../../../constants';
+import { getNearestEventsTitle } from '../../../utils/calendar/getNearestEventsTitle';
 
-export const CalendarEventsList = ({ date, events }: { date: Date; events: IEvent[] }) => {
+export const CalendarEventsList = ({
+    date,
+    events,
+    showNearestEvents,
+}: {
+    date: Date;
+    events: IEvent[];
+    showNearestEvents: boolean;
+}) => {
     const [day, month] = date.toLocaleDateString().split('.');
     const title = `${day.replace(/(^0)/, '')} ${monthsMap[month]}`;
+    const nearestEventsTitle = getNearestEventsTitle(events, showNearestEvents);
 
     return (
         <div className={classes.CalendarEventsList}>
-            <h2 className={classes.Title}>{title}</h2>
+            {showNearestEvents ? (
+                <>
+                    <h2 className={classes.Title}>{nearestEventsTitle}</h2>
+                    <h3 className={classes.SubTitle}>{title}</h3>
+                </>
+            ) : (
+                <h2 className={classes.Title}>{title}</h2>
+            )}
 
             <div>
                 {events?.length ? (
