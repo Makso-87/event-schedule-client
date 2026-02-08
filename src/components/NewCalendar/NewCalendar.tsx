@@ -17,9 +17,20 @@ export const NewCalendar = () => {
     const [daysGrid, setDaysGrid] = useState<ICalendarRowItem[][]>([]);
     const [selectedEvents, setSelectedEvents] = useState<IEvent[]>(null);
     const [selectedDay, setSelectedDay] = useState<IDayItem>(null);
+    const [showNearestEvents, setShowNearestEvents] = useState<boolean>(false);
 
     useEffect(() => {
         setDaysGrid(getDaysGrid(currentDate, events));
+
+        if (events.length) {
+            const nearestEvents = getNearestEvents(events);
+            setSelectedEvents(nearestEvents);
+            setSelectedDay({
+                date: new Date(nearestEvents[0].startDate),
+            } as IDayItem);
+
+            setShowNearestEvents(true);
+        }
     }, [events]);
 
     const onClickNextMonthButton: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -58,6 +69,7 @@ export const NewCalendar = () => {
         if (day.inCurrentMonth) {
             setSelectedDay(day);
             setSelectedEvents(day.events);
+            setShowNearestEvents(false);
         }
     };
 
@@ -121,7 +133,13 @@ export const NewCalendar = () => {
                 </table>
             </div>
 
-            {selectedEvents && <CalendarEventsList date={selectedDay.date} events={selectedEvents} />}
+            {selectedEvents && (
+                <CalendarEventsList
+                    showNearestEvents={showNearestEvents}
+                    date={selectedDay.date}
+                    events={selectedEvents}
+                />
+            )}
         </div>
     );
 };

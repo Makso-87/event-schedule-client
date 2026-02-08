@@ -8,6 +8,12 @@
         margin: 0 0 20px;
     }
 
+    .SubTitle {
+        font-size: 21px;
+        line-height: 24px;
+        margin: 0 0 20px;
+    }
+
     .NoEvents {
         font-size: 14px;
         line-height: 17px;
@@ -105,7 +111,8 @@
         margin: 20px 0 0;
         padding: 0 0 20px;
 
-        .Title {
+        .Title,
+        .SubTitle {
             text-align: center;
         }
 
@@ -120,6 +127,12 @@
         .Title {
             font-size: 20px;
             line-height: 23px;
+            text-align: center;
+        }
+
+        .SubTitle {
+            font-size: 18px;
+            line-height: 21px;
             text-align: center;
         }
 
@@ -165,6 +178,12 @@
             margin: 0 0 10px;
         }
 
+        .SubTitle {
+            font-size: 16px;
+            line-height: 19px;
+            margin: 0 0 10px;
+        }
+
         .CalendarEventsListItem {
             .EventName {
                 font-size: 14px;
@@ -184,6 +203,11 @@
         .Title {
             font-size: 16px;
             line-height: 19px;
+        }
+
+        .SubTitle {
+            font-size: 15px;
+            line-height: 18px;
         }
 
         .CalendarEventsListItem {
