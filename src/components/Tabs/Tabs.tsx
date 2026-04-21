@@ -3,7 +3,7 @@ import classes from './Tabs.module.scss';
 import { ETabType } from '../../enums';
 import { EventsList } from '../EventsList/EventsList';
 import { Categories } from '../Categories/Categories';
-import { NewCalendar } from '../NewCalendar/NewCalendar';
+import { Calendar } from '../Calendar/Calendar';
 
 const tabs = [
     {
@@ -22,7 +22,7 @@ const tabs = [
 
 const tabsContent = {
     [ETabType.Events]: <EventsList />,
-    [ETabType.Calendar]: <NewCalendar />,
+    [ETabType.Calendar]: <Calendar />,
     [ETabType.Categories]: <Categories />,
 };
 

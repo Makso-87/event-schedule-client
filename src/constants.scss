@@ -5,7 +5,10 @@ $color4: #94aed4;
 $color5: #8cd1c4;
 $color-white: #ffffff;
 $color-black: #000;
+$color-dark: #25221d;
 $color-peach: #bfa06a;
+$color-gray: #9e9d98;
+$color-light-gray: #c0c0c0;
 
 @mixin transition() {
     transition: all 0.2s ease-in-out;

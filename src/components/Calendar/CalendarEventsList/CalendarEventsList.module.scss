@@ -25,9 +25,31 @@
         border: 1px solid $color-peach;
         border-radius: 5px;
         width: 100%;
+        display: flex;
 
         &:last-child {
             margin: 0;
+        }
+
+        .TimeColumn {
+        }
+
+        .TimeContainer {
+            position: relative;
+            padding: 0 0 0 27px;
+
+            .TimeIcon {
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .InfoColumn {
+            padding: 0 0 0 10px;
         }
 
         .EventName {
@@ -38,6 +60,7 @@
             display: flex;
             margin: 0 0 10px;
             align-items: center;
+            color: $color-gray;
 
             &:first-of-type {
                 align-items: center;
@@ -73,12 +96,16 @@
 
             .EventDate {
                 display: flex;
+                color: #28283b;
+                font-size: 20px;
+                line-height: 23px;
+                font-weight: 600;
 
                 .DateItem {
                     display: flex;
 
                     &:first-child {
-                        margin: 0 5px 0 0;
+                        margin: 0 2px 0 0;
                     }
 
                     &:last-child {
@@ -93,7 +120,7 @@
                 }
 
                 .LongDash {
-                    margin: 0 5px 0 0;
+                    margin: 0 2px 0 0;
                 }
             }
 
@@ -101,6 +128,7 @@
             }
 
             .EventLink {
+                line-break: anywhere;
             }
         }
     }
@@ -147,6 +175,11 @@
                 line-height: 17px;
                 align-items: flex-start;
 
+                .EventDate {
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+
                 .InfoTypeName {
                     margin: 0 3px 0 0;
 
@@ -162,6 +195,34 @@
                 .EventCategory {
                     font-size: 10px;
                     line-height: 13px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .CalendarEventsList {
+        .CalendarEventsListItem {
+            padding: 10px;
+
+            .TimeContainer {
+                padding: 0 0 0 22px;
+
+                .TimeIcon {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .InfoColumn {
+                padding: 0 0 0 5px;
+            }
+
+            .InfoContainer {
+                .EventDate {
+                    font-size: 14px;
+                    line-height: 17px;
                 }
             }
         }
@@ -186,13 +247,27 @@
 
         .CalendarEventsListItem {
             .EventName {
-                font-size: 14px;
-                line-height: 17px;
+                font-size: 12px;
+                line-height: 15px;
+            }
+
+            .TimeContainer {
+                padding: 0 0 0 17px;
+
+                .TimeIcon {
+                    width: 16px;
+                    height: 16px;
+                }
             }
 
             .InfoContainer {
                 font-size: 12px;
                 line-height: 15px;
+
+                .EventDate {
+                    font-size: 12px;
+                    line-height: 15px;
+                }
             }
         }
     }
@@ -211,6 +286,8 @@
         }
 
         .CalendarEventsListItem {
+            padding: 5px;
+
             .EventName {
                 font-size: 12px;
                 line-height: 15px;

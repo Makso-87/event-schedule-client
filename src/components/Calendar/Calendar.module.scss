@@ -4,7 +4,7 @@
     display: flex;
     align-items: flex-start;
 
-    .NewCalendar {
+    .Calendar {
         display: flex;
         border-radius: 5px;
         background: #fff3df;
@@ -102,7 +102,7 @@
 
 @media only screen and (max-width: 420px) {
     .CalendarTab {
-        .NewCalendar {
+        .Calendar {
             .CalendarTop {
                 .MonthName {
                     font-size: 23px;
@@ -131,7 +131,7 @@
 
 @media only screen and (max-width: 360px) {
     .CalendarTab {
-        .NewCalendar {
+        .Calendar {
             .CalendarTop {
                 .MonthName {
                     font-size: 20px;
