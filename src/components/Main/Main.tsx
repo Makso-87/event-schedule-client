@@ -4,7 +4,7 @@ import { ImageBlock } from '../ImageBlock/ImageBlock';
 import { SiteWrapper } from '../SiteWrapper/SiteWrapper';
 import { CommonInfo } from '../CommonInfo/CommonInfo';
 import { Tabs } from '../Tabs/Tabs';
-import { NewCalendar } from '../NewCalendar/NewCalendar';
+import { Calendar } from '../Calendar/Calendar';
 import { getEvents } from '../../api/getEvents';
 import { setEvents } from '../../store/slices/eventsListSlice';
 import { useAppDispatch } from '../../hooks/redux-toolkit-hooks';
@@ -30,7 +30,7 @@ export const Main = () => {
             <ImageBlock />
             <SiteWrapper>
                 <CommonInfo />
-                {mode === 'calendarOnly' ? <NewCalendar /> : <Tabs />}
+                {mode === 'calendarOnly' ? <Calendar /> : <Tabs />}
             </SiteWrapper>
         </main>
     );

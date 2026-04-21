@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useEffect, useState } from 'react';
-import classes from './NewCalendar.module.scss';
+import classes from './Calendar.module.scss';
 
 import { ICalendarRowItem, IDayItem, IEvent } from '../../interfaces';
 import { Day } from './Day/Day';
@@ -10,7 +10,7 @@ import { getDaysGrid } from '../../utils/calendar/getDaysGrid';
 import { getDateData } from '../../utils/calendar/getDateData';
 import { daysOfWeek, FIRST_MONTH_NUMBER, LAST_MONTH_NUMBER, months } from '../../constants';
 
-export const NewCalendar = () => {
+export const Calendar = () => {
     const events = useAppSelector((state) => state.eventsList.events);
 
     const [currentDate, setCurrentDate] = useState(getDateData().date);
@@ -78,7 +78,7 @@ export const NewCalendar = () => {
 
     return (
         <div className={classes.CalendarTab}>
-            <div className={classes.NewCalendar}>
+            <div className={classes.Calendar}>
                 <div className={classes.CalendarTop}>
                     <button onClick={onClickPrevMothButton} className={classes.ButtonPrev} id='btnPrev' type='button' />
 
