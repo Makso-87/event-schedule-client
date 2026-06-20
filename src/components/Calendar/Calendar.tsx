@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import classes from './Calendar.module.scss';
 
 import { ICalendarRowItem, IDayItem, IEvent } from '../../interfaces';
@@ -18,8 +18,19 @@ export const Calendar = () => {
     const [selectedEvents, setSelectedEvents] = useState<IEvent[]>(null);
     const [selectedDay, setSelectedDay] = useState<IDayItem>(null);
     const [showNearestEvents, setShowNearestEvents] = useState<boolean>(false);
+    const [cellHeight, setCellHeight] = useState<string>('');
+
+    const tableRef = useRef<HTMLTableElement>(null);
+
+    const getCellWidth = () => {
+        const tableCell = tableRef.current?.querySelector('tr td');
+        setCellHeight(`${tableCell?.clientWidth}px`);
+    };
 
     useEffect(() => {
+        getCellWidth();
+        window.addEventListener('resize', getCellWidth);
+
         setDaysGrid(getDaysGrid(currentDate, events));
 
         if (events.length) {
@@ -34,6 +45,10 @@ export const Calendar = () => {
                 setShowNearestEvents(true);
             }
         }
+
+        return () => {
+            window.removeEventListener('resize', getCellWidth);
+        };
     }, [events]);
 
     const onClickNextMonthButton: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -94,7 +109,7 @@ export const Calendar = () => {
                     />
                 </div>
 
-                <table className={classes.CalendarGrid}>
+                <table className={classes.CalendarGrid} ref={tableRef}>
                     <thead>
                         <tr>
                             {daysOfWeek.map((day) => {
@@ -123,7 +138,7 @@ export const Calendar = () => {
                                               };
 
                                               return (
-                                                  <td key={key}>
+                                                  <td key={key} style={{ height: cellHeight }}>
                                                       <Day data={data} callback={() => onClickMonthDay(day)} />
                                                   </td>
                                               );
