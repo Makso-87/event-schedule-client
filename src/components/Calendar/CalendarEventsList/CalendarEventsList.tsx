@@ -22,7 +22,7 @@ export const CalendarEventsList = ({
         <div className={classes.CalendarEventsList}>
             {showNearestEvents ? (
                 <>
-                    <h2 className={classes.Title}>{nearestEventsTitle}</h2>
+                    {/*<h2 className={classes.Title}>{nearestEventsTitle}</h2>*/}
                     <h3 className={classes.SubTitle}>{title}</h3>
                 </>
             ) : (
@@ -32,10 +32,10 @@ export const CalendarEventsList = ({
             <div>
                 {events?.length ? (
                     events.map((event) => {
-                        const { name, category, place, lent, url, startTime } = event;
+                        const { id, name, place, lent, url, startTime } = event;
 
                         return (
-                            <div className={classes.CalendarEventsListItem} key={category.color}>
+                            <div className={classes.CalendarEventsListItem} key={id}>
                                 <table>
                                     <td className={classes.TimeColumn}>
                                         {startTime ? (

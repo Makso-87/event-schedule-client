@@ -8,6 +8,7 @@ export interface ICategory {
 }
 
 export interface IEvent {
+    id: string;
     name: string;
     startDate: string;
     endDate: string;
